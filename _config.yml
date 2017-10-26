@@ -16,7 +16,9 @@ baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : tahamonfared/tahamonfared.github.io
 teaser                   : "/assets/images/pic.png"
 breadcrumbs              : true # true, false (default)
-words_per_minute         : 200
+words_per_minute         : 100
+theme                    : minimal-mistakes-jekyll
+github                   : [metadata]
 
 comments:
   provider               : "facebook"
@@ -204,7 +206,7 @@ timezone: America/Los_Angeles
 
 
 # Plugins
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist

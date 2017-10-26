@@ -1,28 +1,30 @@
 ---
 published: true
 status: publish
-excerpt: "EM Algorithm is basically expectation maximization, although you need to find the complete data first"
+excerpt: "EM Algorithm is expectation maximization, although you need to find the complete data first."
 ---
  
-If we are ever asked to fill data for missing values in a continuous variable setting, well there are numerous ways. Many will just impute the mean of the variable for the missing value and some will just remove the observation. 
+If we are ever asked to fill data for missing values in a continuous variable setting, well there are numerous ways. Many will just impute the mean of the variable for the missing value, and some will remove the observation. 
 
-But we are first inetersted in keeping as much information as we can (not the second option) and also we don't want to mess with the covariance structure of our data (the first option). 
+But we are first interested in keeping as much information as we can (not the second option), and also we don't want to mess with the covariance structure of our data (the first option). 
 
-EM algorithm uses likelihood function for maximization of conditional distribution of missing values given observed values. Missing values does not only include the missing data, also it incorporates the missing mean vectors and covariance matrix! This is our complete data structure in the EM algorithm lingo!
+EM algorithm uses likelihood function for maximization of the conditional distribution of missing values given observed values. Missing values does not only include the missing data but also it incorporates the missing mean vectors and covariance matrix! This is our complete data structure in the EM algorithm lingo!
 
-Here we are only looking to fill in multivariate normal data, since it's asymptotically more useful and well, it is more convenient. Also, we should be aware of randomness of our missing values. It should be missing at completely random. (This is not the place for differentiating between different randomness structures, but just as a hint, think of a variable "income" where people may based on multiple reasons avoid answering it. It would be wise to closely look at our data to be certain that the randomness is completely at random, believe me!)
+Here we are only looking to fill in multivariate normal data since it's asymptotically more useful and well, it is more convenient. Also, we should be aware of randomness of our missing values. It should be missing at completely random. (This is not the place for differentiating between different randomness structures, but just as a hint, think of a variable "income" where people may be based on multiple reasons avoid answering it. It would be wise to carefully look at our data to be sure that the randomness is completely at random, believe me!)
 
-To solve this problem we need to first partition our data. Each variable should be sorted such that missing values are at the top of the observed vector. 
+To solve this problem, we need first to partition our data. Each variable should be sorted such that missing values are at the top of the observed vector. 
 
 $$x=\left[\begin{array}{c}x_{m} \\ \hline x_{o}\end{array}\right]$$
 
-where "m" stands for missing values and "o" stands for observed. In a multivariate sense, this would reslut in patterns like [ m m o] and [o m o] and so.
+Where "m" stands for missing values and "o" stands for observed. In a multivariate sense, this would result in patterns like [ m m o] and [o m o] and so.
  
-Now we are ready to start our EM algorithm. First we assume we have all the data.Therefore, our likelihood becomes
+Now we are ready to start our EM algorithm. First, we assume we have all the data.Therefore, our likelihood becomes
 
 $$L_c(\mu,\Sigma|x)=\prod_{i=1}^{n}(2\pi)^{-\frac{p}{2}}|\Sigma|^{-\frac{1}{2}}exp\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\}$$
 
-Where "c" stands for complete data (a notation of most importance in EM algorithm. I will discuss other applications, like EM algortihm classification based on normal mixture models. Choosing the **Complete data** is so harder than the obvious choice here). 
+Where "c" stands for complete data. 
+
+Note: I will discuss other applications, like EM algortihm classification based on normal mixture models. Choosing the **Complete data** is so harder than the obvious choice here). 
  
 Taking the log we have 
 
@@ -34,11 +36,11 @@ $tr$, here means the trace of the matrix. Since the $(x_i-\mu)^T\Sigma^{-1}(x_i-
 
 $$l_c(\mu,\Sigma|x)\propto \frac{-n}{2}log(|\Sigma|)-\frac{1}{2}tr\{\Sigma^{-1}\sum_{i=1}^{n}(x_ix_i^T-x_i\mu^T-\mu x_i^T+\mu\mu^T)\}$$
  
-With this likelihood, now we can make our Q function. The Q function in the EM algorithm is basically, the expectation of loglikelihood of missing data, given the current estimates. Taking derivatives of this function would build our estimates for missing values. 
+With this likelihood, now we can make our Q function. The Q function in the EM algorithm is the expectation of loglikelihood of missing data, given the current estimates. Taking derivatives of this function would build our estimates for missing values. 
  
 $$Q(x^m,\theta'|\theta,x^o)=E(l_c(x^m,\theta')|\theta,x^o)$$
  
-where $\theta$ vector, is our initial values for our parameters (you can input any set of values, it will hopefully converge eventually). The parameters in a normal distribution are the mean and the covariance matrix.  
+Where $\theta$ vector, is our initial values for our parameters (you can input any set of values, it will hopefully converge eventually). The parameters of a normal distribution are the mean and the covariance matrix.  
  
 $$Q(x^m,\mu',\Sigma'|\mu,\Sigma,x^o)\propto \frac{-n}{2}log(|\Sigma'|)-\frac{1}{2}tr\{\Sigma'^{-1}\sum_{i=1}^{n}(E(x_{i}{x_{i}}^T|\mu,\Sigma,x_{i}^o) \ldots$$
 
@@ -58,13 +60,13 @@ The last equation is from the fact that since the data is normal:
 
 $$f(x_{m}|x_{o})\sim N_{dim(x_m)}(\mu_{m}+\Sigma_{mo}\Sigma_{oo}^{-1}(x_{o}-\mu_o),\Sigma_{mm}-\Sigma_{mo}\Sigma_{oo}^{-1}\Sigma_{om})$$
  
-In order to understand this better, you need to look at text books which cover partitioning and conditional distribution of multivariate normal distribution. A good reference could be Johnson's ["Applied multivariate statistical analysis"](https://www.amazon.com/Applied-Multivariate-Statistical-Analysis-6th/dp/0131877151).  
+To understand this better, you need to look at textbooks which cover partitioning and conditional distribution of multivariate normal distribution. A good reference could be Johnson's ["Applied multivariate statistical analysis"](https://www.amazon.com/Applied-Multivariate-Statistical-Analysis-6th/dp/0131877151).  
  
-The harder expectation is really more involved! 
+The harder expectation is more involved than this expectation! 
 
 $${x_ix_i^T}^*=E(x_{i} {x_{i}}^T|\mu,\Sigma,x_{i}^o)=\left[\begin{array}{c|c}E^{mm} & E^{mo}\\ \hline E^{om} & E^{oo}\end{array}\right]$$
  
-We need to find each part of this matrix separately. First we need a building block. Going back to the conditional distribution and some simple statistical concepts, we can find:
+We need to find each part of this matrix separately. First, we need a building block. Going back to the conditional distribution and some simple statistical concepts, we can find:
 
 $$Cov(x_i^mx_i^m)=E[x_i^m-E(x_i^m)][x_i^m-E(x_i^m)]^T$$
 
@@ -268,7 +270,7 @@ $iteration
 
 ~~~
 
-This one was just a test run! let's try to input a bigger dataset with more NAs.
+This one was just a test run! Let's try to input a larger dataset with more NAs.
 
 ~~~r
 require(mvtnorm)
@@ -325,7 +327,7 @@ res_EM$iteration
 ~~~
 
 
-With only 8 iterations we have got to the best possible solution. That's impressive. and Also very better than just imputing averages since we are considering the covariance structure of the data. 
+With only eight iterations we have got to the best possible solution. That's impressive. and Also better than just imputing averages since we are considering the covariance structure of the data. 
 
 Let's check what would have happened if we only used the means. 
 
@@ -355,7 +357,7 @@ sig_init
 [3,] 2.652180  4.990744 7.245354
 ~~~
 
-I would say that's pretty off from the population variables we provided for producing our data, contrary to the EM algorithm outputs.
+I would say that's a bit off from the population variables we provided for producing our data, contrary to the EM algorithm outputs.
 
 
 
