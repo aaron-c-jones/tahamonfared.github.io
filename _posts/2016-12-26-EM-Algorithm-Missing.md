@@ -4,35 +4,33 @@ status: publish
 excerpt: "EM Algorithm is expectation maximization, although you need to find the complete data first."
 ---
  
-If we are ever asked to fill data for missing values in a continuous variable setting, well there are numerous ways. Many will just impute the mean of the variable for the missing value, and some will remove the observation. 
+Consider we are asked to fill missing data.
 
-But we are first interested in keeping as much information as we can (not the second option), and also we don't want to mess with the covariance structure of our data (the first option). 
+Historically, many just impute the mean of the variable for the missing value, and some will remove the observation with missing values. 
 
-EM algorithm uses likelihood function for maximization of the conditional distribution of missing values given observed values. Missing values does not only include the missing data but also it incorporates the missing mean vectors and covariance matrix! This is our complete data structure in the EM algorithm lingo!
+But we have better ways now. We want to  keep as much information as we can while not messing with the covariance structure of our data.
 
-Here we are only looking to fill in multivariate normal data since it's asymptotically more useful and well, it is more convenient. Also, we should be aware of randomness of our missing values. It should be missing at completely random. (This is not the place for differentiating between different randomness structures, but just as a hint, think of a variable "income" where people may be based on multiple reasons avoid answering it. It would be wise to carefully look at our data to be sure that the randomness is completely at random, believe me!)
+This EM algorithm uses likelihood for maximization of the conditional distribution of missing values given observed values, therefore keeping the covariance structure as intact as possible. 
 
 To solve this problem, we need first to partition our data. Each variable should be sorted such that missing values are at the top of the observed vector. 
 
 $$x=\left[\begin{array}{c}x_{m} \\ \hline x_{o}\end{array}\right]$$
 
-Where "m" stands for missing values and "o" stands for observed. In a multivariate sense, this would result in patterns like [ m m o] and [o m o] and so.
+Where "m" stands for missing values and "o" stands for observed. In a multivariate sense, this would result in patterns like [m m o] and [m o o].
  
-Now we are ready to start our EM algorithm. First, we assume we have all the data.Therefore, our likelihood becomes
+Now we are ready to start our EM algorithm. First, we assume we have all the data.Therefore, our likelihood (using multivariate normal) becomes
 
 $$L_c(\mu,\Sigma|x)=\prod_{i=1}^{n}(2\pi)^{-\frac{p}{2}}|\Sigma|^{-\frac{1}{2}}exp\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\}$$
 
-Where "c" stands for complete data. 
+Where "c" stands for **Complete data**. 
 
-Note: I will discuss other applications, like EM algortihm classification based on normal mixture models. Choosing the **Complete data** is so harder than the obvious choice here). 
- 
 Taking the log we have 
 
 $$l_c(\mu,\Sigma|x)\propto \sum_{i=1}^{n}{-\frac{1}{2}}log(|\Sigma|)+\{-\frac{1}{2}(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)\}$$
 
 $$={-\frac{1}{2}}log(|\Sigma|)-\frac{1}{2}\sum_{i=1}^{n}tr\{\Sigma^{-1}(x_i-\mu)(x_i-\mu)^T\}$$
  
-$tr$, here means the trace of the matrix. Since the $(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)$ is a scalar, well its trace is equivalent to its value. And we know we can change the order of matrix multiplications in a trace. Although you should always take notice of the dimensions of the matrices and the only possible way of doing it, is in a cycle.  
+$tr$, here means the trace of the matrix. Since the $(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)$ is a scalar, its trace is equivalent to its value. And we know we can change the order of matrix multiplications in a trace. Although you should always take notice of the dimensions of the matrices and the only possible way of doing it, is in a cycle.  
 
 $$l_c(\mu,\Sigma|x)\propto \frac{-n}{2}log(|\Sigma|)-\frac{1}{2}tr\{\Sigma^{-1}\sum_{i=1}^{n}(x_ix_i^T-x_i\mu^T-\mu x_i^T+\mu\mu^T)\}$$
  
@@ -66,7 +64,7 @@ The harder expectation is more involved than this expectation!
 
 $${x_ix_i^T}^*=E(x_{i} {x_{i}}^T|\mu,\Sigma,x_{i}^o)=\left[\begin{array}{c|c}E^{mm} & E^{mo}\\ \hline E^{om} & E^{oo}\end{array}\right]$$
  
-We need to find each part of this matrix separately. First, we need a building block. Going back to the conditional distribution and some simple statistical concepts, we can find:
+We need to find each part of this matrix separately. First, we need a building block. Going back to the conditional distribution and some statistical concepts, we can find:
 
 $$Cov(x_i^mx_i^m)=E[x_i^m-E(x_i^m)][x_i^m-E(x_i^m)]^T$$
 
