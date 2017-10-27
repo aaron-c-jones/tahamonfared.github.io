@@ -1,15 +1,15 @@
 ---
-excerpt: "Classification based on logistics regression"
+excerpt: "Classification based on logistics regression."
 
 ---
 
-The idea behind classification is a supervised learning methodology. So we'll have a test and a training set. We also need to have a plotting platform to show the decision boundaries. ISLR, the book respected in this line of studies properly discussed most of the problems. Although they come short on methods of visualization. Although they have produced the required plots in the body, they haven't discussed their codes.
+The idea behind classification is a supervised learning methodology. So we'll have a test and a training set. We also need to have a plotting platform to show the decision boundaries. ISLR, the book respected in this line of studies adequately discussed most of the problems. However, you can't find the code for their charts easily.
 
-If you sniff around the web, you'll probably find how those plots are made in several posts. Combining that knowledge I had a crack at it.
+If you sniff around the web, you'll probably see how those plots are created. Combining that knowledge I had a crack at it.
 
 Let's go for a small dataset, Flea dataset. I don't even want to discuss the variables!
 
-We have two categories of fleas, so it's a binomial, rather than a multinomial case. That's convenient for us, since we can use glm. I'll be using a test and a train dataset to properly cross validate our methods.
+We have two categories of fleas, so it's a binomial, rather than a multinomial case. That's convenient for us since we can use glm. I'll be using a test and a training dataset to cross-validate our methods properly.
 
 ``` r
 flea$type<-as.factor(flea$type)
@@ -20,7 +20,7 @@ train<-flea[-rand,]
 
 A sample of 5 would suffice.
 
-Also let's look at principal components of our explanatory variables to visualize our data.
+Also, let's look at principal components of our explanatory variables to visualize our data.
 
 ``` r
 require(ggbiplot)
@@ -36,9 +36,9 @@ g+theme_minimal()
 detach(package:ggbiplot)
 ```
 
-ggbiplot is a good package to visualize the data, aside from it's use in dimension reduction by using principal components. It shows data points on plane made by two most important principal components. We can clearly distinct between these two groups by just looking at the plot. But how would we find it by math!
+Ggbiplot is a package to visualize the data, aside from its use in dimension reduction by using principal components. It shows data points on a plane made by two most important principal components. We can distinct between these two groups by just looking at the plot. But how would we find it by math!
 
-If you have any problems in installing ggbiplot, you should use the _devtools_ package to install it from it's github repository.
+If you have any problems in installing ggbiplot, you should use the _devtools_ package to install it from it's GitHub repository.
 
 ``` r
 install.packages("devtools")
@@ -48,7 +48,7 @@ install_github("vqv/ggbiplot")
 
 Let's use logistics regression to classify now. Basically what we'll do here is calculate odds for each point of being in one of our groups to being in the other based on logit link function (linear assumption on the relationship between the log odds of the response and explanatory variables).
 
-Doing logistics regression will allow us to select the best model based on training dataset only. I have written a logistics model selection function, which will exhaustively look for the best model up to first degree interactions. We should never use this though for a bigger set of variables since the possible models grow very fast.. $O(2^{\\frac{p(p+1)}{2}})$
+Doing logistics regression will allow us to select the best model based on training dataset only. I have written a logistics model selection function, which will exhaustively look for the best model up to first degree interactions. We should never use this though for a larger set of variables since the possible models grow very fast.. $O(2^{\\frac{p(p+1)}{2}})$
 
 ``` r
 logistic_binomial_model_selection<-function(data,response){
@@ -141,7 +141,7 @@ logistic_binomial_model_selection(data=train,response=1)
 | 32  |  24.320626| Y3             |            0.0000018|    \*        |
 | 33  |  47.134008| 1              |            1.0000000|              |
 
-The best model here, shows we need only two variables. Y1 and Y2. So we wouldn't have any plotting issues! If there were more than two then we would have needed to map our boundary on several plots, consisting of plains made by such variables or we could have done it on the first 2 PCs.
+The best model here, shows we need only two variables. Y1 and Y2. So we wouldn't have any plotting issues! If there were more than two, then we would have required mapping our boundary on several plots, consisting of plains made by such variables or we could have done it on the first 2 PCs.
 
 ``` r
 model<-glm(data=train,type~Y1+Y2,family=binomial("logit"))

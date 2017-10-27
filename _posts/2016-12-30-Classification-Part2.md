@@ -12,7 +12,7 @@ require(dplyr)
 source('http://www.public.iastate.edu/~maitra/stat501/Rcode/BoxMTest.R')
 ```
 
-This time we're going to explore other options for classification. Namely discriminant analysis and K nearest neighbours.
+This time we're going to explore other options for classification. Namely discriminant analysis and K nearest neighbors.
 
 Again we prepare our data and make the test and train sets.
 
@@ -33,7 +33,7 @@ names(XY_grid)<-c("Y1","Y2")
 Linear Discriminant Analysis
 ============================
 
-From the model selection part in the last post we know Y1 and Y2 are enough for our classifications. So let's test them for the assumptions of LDA. Namely, normality and constant covariance structure between categories of response.
+From the model selection part in the last post, we know Y1 and Y2 are enough for our classifications. So let's test them for the assumptions of LDA. Namely, normality and constant covariance structure between categories of response.
 
 ``` r
 mardiaTest(flea[,2:3],qqplot = TRUE)
@@ -72,7 +72,7 @@ bx_test<-BoxMTest(flea[,2:3],flea[,1])
     ## ------------------------------------------------
     ## Covariance matrices are not significantly different.
 
-The covariances are not different, so we can perform LDA on the data. That's good news, less parameters to estimate in the analysis!
+The covariances are not different so that we can perform LDA on the data. That's good news, fewer parameters to estimate in the analysis!
 
 let's see how does the LDA predict.
 
@@ -142,12 +142,12 @@ $$x^T\Sigma^{-1}(\mu_k-\mu_j)=C$$
 
 which is basically a linear function of x.
 
-To visualize the boundary line we had to find the intercept (the coefficients are given by the lda function). So we ran a linear regression function to get that and made the function for the boundary line and voilà!
+To visualize the boundary line we had to find the intercept (the coefficients are given by the LDA function). So we ran a linear regression function to get that and made the function for the boundary line and voilà!
 
 Quadratic Discriminant Analysis
 ===============================
 
-Let's perform QDA and see what are the challenges there. First off, there is no boundary function output in the predict which makes it hard to draw it... So we need to use the contour plot to visualize the probabilities assigned and the cutoff boundary mapped to the 2D plot.
+Let's perform QDA and see what challenges we'll face. First off, there is no boundary function output in the predict which makes it hard to draw it. So we need to use the contour plot to visualize the probabilities assigned, and the cutoff boundary mapped to the 2D plot.
 
 ``` r
 tr<-setdiff(1:nrow(flea),rand)
@@ -175,7 +175,7 @@ Bayes decision boundary is derived from equating each group's quadratic discrimi
 
 $$\delta_k=\frac{-1}{2}(x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)-1/2log(\|\Sigma_k\|)+log(\pi_k)$$
 
-where *μ*<sub>*k*</sub>, *Σ*<sub>*k*</sub>, *π*<sub>*k*</sub> are all estimated based on the sample. The data is scaled in the qda function. Scaling is first done on the train set. Then each new point should be scaled based on mean and standard deviations calculated for the train data set. And then we can resume building our disriminant functions.
+where *μ*<sub>*k*</sub>, *Σ*<sub>*k*</sub>, *π*<sub>*k*</sub> are all estimated based on the sample. The data is scaled in the QDA function. Scaling is first performed on the train set. Then each new point should be scaled based on mean and standard deviations calculated for the train data set. And then we can resume building our discriminant functions.
 
 Then the mean and covariance matrix of each category is estimated by their MLEs from the sample.
 
@@ -186,7 +186,7 @@ $$x^T[\Sigma_k^{-1}(x-2\mu_k)-\Sigma_j^{-1}(x-2\mu_j)]=c$$
 
 It's not an easy task to draw this. So we'll stick with drawing the contour.
 
-I just provided functions to calculate qda posterior probabilities to see how the scaling is working in the qda function.
+I just provided functions to calculate QDA posterior probabilities to see how the scaling is working in the QDA function.
 
 ``` r
 ####Posterior Probabilities as calculated by qda
@@ -247,7 +247,7 @@ predict(qda_fit)$posterior[1,]
     ## 0.997881609 0.002118391
 
 
-The probabilities calculated by hand and the qda function are the same! thanks god for that!
+The probabilities calculated by hand and the qdaQDAfunction are the same! Thanks god for that!
 
 
 Now let's check the error of the prediction and fit by using QDA.
@@ -342,7 +342,7 @@ plt+stat_contour(data=XY_grid,aes(x=Y1,y=Y2,z=type))+
 
 ![](/assets/images/2016-12-30-Classification-Part2_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
-In plotting the boundary, you should consider that the *prob attribute* output for the knn is very strange. If it is 1, we should keep it as is. If it's not 1, we should take 1-prob to be the assigned probability... nonsense!
+In plotting the boundary, you should consider that the *prob attribute* output for the KNN is strange. If it is 1, we should keep it as is. If it's not 1, we should take 1-prob to be the assigned probability... nonsense!
 
 ``` r
 knn4<-knn(train[,2:3],test[,2:3],cl =train[,1],k = 4,prob = TRUE )
@@ -438,6 +438,6 @@ plt+stat_contour(data=XY_grid,aes(x=Y1,y=Y2,z=type))+
 
 ![](/assets/images/2016-12-30-Classification-Part2_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
-The boundaries produced by the KNN are mental... since this was not a complex dataset and the LDA assumptions were met, we don't need such highly volatile estimates for our boundaries. But this could become handy when we have a harsher dataset to analyse.
+The boundaries produced by the KNN are mental... since this was not a complicated dataset and the LDA assumptions were met, we don't need such highly volatile estimates for our boundaries. But this could become handy when we have a harsher dataset to analyze.
 
-Every classifier we discussed here produced really good classification. This was in part because of wise variable selection, and in part because of the distance between two categories. In this simple case of classification, based on our tests of our explanatory variables, I would have chosen LDA over all other. 
+Every classifier we discussed here produced acceptable classifications. This was in part because of wise variable selection, and in part because of the distance between two categories. In this simple case of classification, based on our tests of our explanatory variables, I would have chosen LDA over all other. 
