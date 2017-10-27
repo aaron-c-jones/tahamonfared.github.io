@@ -17,7 +17,6 @@ repository               : tahamonfared/tahamonfared.github.io
 teaser                   : "/assets/images/pic.png"
 breadcrumbs              : true # true, false (default)
 words_per_minute         : 100
-theme                    : minimal-mistakes-jekyll
 github                   : [metadata]
 
 comments:
@@ -75,9 +74,9 @@ yandex_site_verification :
 
 # Social Sharing
 twitter:        
-  username               : tahamonf
+  username               : 
 facebook:
-  username               : TaVaPa
+  username               : 
   app_id                 :
   publisher              :
 og_image                 : # Open Graph/Twitter default site image
@@ -89,7 +88,6 @@ social:
   type                   : Person 
   name                   : Taha Monfared
   links: 
-   - "https://twitter.com/tahamonf"
    - "https://www.linkedin.com/in/tahamonfared"
 
 
@@ -127,7 +125,7 @@ author:
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
   steam            :
   tumblr           :
-  twitter          : tahamonf
+  twitter          : 
   vine             :
   weibo            :
   xing             :
@@ -284,3 +282,6 @@ defaults:
       type: foo
     values:
       layout: single
+
+
+theme                    : minimal-mistakes-jekyll
