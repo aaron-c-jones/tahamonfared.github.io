@@ -27,7 +27,7 @@ ECDF<-function(dist, params){
 ECDF("norm","mean = 5, sd = 1")
 ```
 
-![](/assets/images/2017-10-24-R-Tricks_files/figure-markdown_github/unnamed-chunk-1-1.png)
+![](/assets/images/2017-10-24-R-Tricks_files/figure-markdown_github/unnamed-chunk-1-1.png) 
 
 Seems easy here, since you basically didn't need it. But sometimes in a function you'll need to do this. I'm going to provide an exmaple in Shiny later.
 
@@ -39,17 +39,38 @@ This is a Bayesian network app to estimate probabilities on adult dataset from U
 
 **You want legend but it's in your way. Rbase.**
 
-Rbase has a lot of advantages. you can use the Rbase legend as so, so that it does not get in the way. 
+Rbase has a lot of advantages. you can use the Rbase legend as so, so that it does not get in the way.
 
-```r
+``` r
 legend("topright", ....,box.col = "transparent", bg = "transparent")
-
 ```
 
-If you want the axes to look nicer. 
+If you want the axes to look nicer.
 
-```r
+``` r
 plot(...,axes = FALSE)
 axis(side =1 , labels=..., at =...)
 ```
 
+**Shiny, how to add action item for Enter press?**
+
+After struggling with the concept of adding the added ability of pressing Enter on the keyboard instead of clicking on the update button here is the way I found. It has problems but it serves it's purpose. As it keeps the value of last pressed key, so whenever you press Enter then everything gets updated until you press some other key afterwards. Then it waits for you to fill in the required fields before updating.
+
+``` r
+js <- '$(document).on("keyup", function(e) {
+              Shiny.onInputChange("Enter", e.keyCode);
+          });
+      '
+```
+
+Then add this in the UI:
+
+``` r
+tags$script(js)
+```
+
+And, add this is the server:
+
+``` r
+if(!is.null(input$Enter) && input$Enter==13){...}
+```
