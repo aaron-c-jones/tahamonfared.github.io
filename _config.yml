@@ -5,6 +5,8 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # `jekyll serve`. If you change this file, please restart the server process.
 
+minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
 # Site Settings
 locale                   : en_US
 title                    : "Statistical Thinking"
@@ -14,10 +16,12 @@ description              : "Learn the science behind learning tools"
 url                      : https://tahamonfared.github.io
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : tahamonfared/tahamonfared.github.io
-teaser                   : "/assets/images/pic.png"
+teaser                   : "/assets/images/stats.jpg"
 breadcrumbs              : true # true, false (default)
 words_per_minute         : 100
 github                   : [metadata]
+#head_scripts             :
+#  -assets/js/facebook_comments.js
 
 comments:
   provider               : "facebook"
@@ -28,26 +32,8 @@ comments:
   facebook:
     # https://developers.facebook.com/docs/plugins/comments
     appid                :
-    num_posts            : 5 (default)
+    num_posts            : 20 (default)
     colorscheme          : "light" 
-staticman:
-  allowedFields          : ['name', 'email', 'url', 'message']
-  branch                 : "master"
-  commitMessage          : "New comment."
-  filename               : comment-{@timestamp}
-  format                 : "yml"
-  moderation             : true
-  path                   : "docs/_data/comments/{options.slug}" # "/_data/comments/{options.slug}" (default)
-  requiredFields         : ['name', 'email', 'message']
-  transforms:
-    email                : "md5"
-  generatedFields:
-    date:
-      type               : "date"
-      options:
-        format           : "iso8601" # "iso8601" (default), "timestamp-seconds", "timestamp-milliseconds"
-atom_feed:
-  path                   : # blank (default) uses feed.xml
 
 # Octopress
 
@@ -61,8 +47,6 @@ page_layout: page
 
 # Format titles with titlecase?
 titlecase: true
-
-
 
 # SEO Related
 google_site_verification : "google1cac8dbc0d2780c8"
@@ -94,10 +78,9 @@ social:
 
 # Analytics
 analytics:
-  provider               : false # false (default), "google", "google-universal", "custom"
+  provider               : "google" # false (default), "google", "google-universal", "custom"
   google:
-    tracking_id          :
-
+    tracking_id          :  "UA-109814480-1"
 
 
 # Site Author
@@ -122,7 +105,7 @@ author:
   linkedin         : tahamonfared
   pinterest        :
   soundcloud       :
-  stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
+  stackoverflow    : "8955110/taha-monfared"
   steam            :
   tumblr           :
   twitter          : 
@@ -198,7 +181,7 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 5 # amount of posts to show
+paginate: 10 # amount of posts to show
 paginate_path: /page:num/
 timezone: America/Los_Angeles
 
@@ -210,7 +193,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jemoji
-  
+
 # mimic GitHub Pages with --safe
 whitelist:
   - jekyll-paginate
@@ -237,6 +220,12 @@ whitelist:
 #  type: liquid
 #  path: /tags/
 # https://github.com/jekyll/jekyll-archives
+category_archive:
+  type: jekyll-archives
+  path: /categories/
+tag_archive:
+  type: jekyll-archives
+  path: /tags/
 jekyll-archives:
   enabled:
     - categories
@@ -247,6 +236,22 @@ jekyll-archives:
   permalinks:
     category: /categories/:name/
     tag: /tags/:name/
+collections:
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
+# https://github.com/jekyll/jekyll-archives
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category: archive-taxonomy
+    tag: archive-taxonomy
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
+
 
 
 # HTML Compression
@@ -265,7 +270,7 @@ defaults:
       type: posts
     values:
       layout: single
-      author_profile: true
+      author_profile: false
       read_time: true
       comments: true
       share: true
@@ -282,6 +287,5 @@ defaults:
       type: foo
     values:
       layout: single
-
 
 theme                    : minimal-mistakes-jekyll

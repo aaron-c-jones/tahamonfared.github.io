@@ -2,52 +2,20 @@
 ---
 
 <!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.7.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
 <html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
   <head>
     {% include head.html %}
     {% include head/custom.html %}
-
-	<script type="text/x-mathjax-config">
-	 	MathJax.Hub.Config({
-	  		tex2jax: {
-	    		inlineMath: [ ['$','$'] ]
-	    	},
-	  		CommonHTML: { 
-	  			scale: 80,
-	  			linebreaks: {
-	      			width: "80%"
-	      		}
-	  		} 
-		});
-	</script>	
-
-	<script type="text/javascript" async
-  		src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
-  	</script>
-  <meta property="fb:app_id" content="{1799232470294510}" />
-</head>
-
   </head>
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
-    <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '1799232470294510',
-          xfbml      : true,
-          version    : 'v2.8'
-        });
-      };
 
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
-   
     {% include browser-upgrade.html %}
     {% include masthead.html %}
 
