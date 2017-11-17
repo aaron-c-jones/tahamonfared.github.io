@@ -7,7 +7,13 @@ October 31, 2017
 
 Shiny is the web platform provided by RStudio, which can run your R codes on a server and supports the interactive user interface. You cannot embed the outcomes on your website.
 
-There are other routes available though, but not only on R. Tableau lets you publish your work on its servers as well, also you can embed its charts in your website. PowerBI allows you to share your work with whomever you choose, but they should also have PowerBI professional license. D3 javascript can handle inline visualization, and they are gaining popularity, but I haven't had the chance to experience with it yet).
+There are other routes available though, but not only on R. Tableau lets you publish your work on its servers as well, also you can embed its charts in your website. PowerBI allows you to share your work with whomever you choose, but they should also have PowerBI professional license. This is in your organization. For sharing it online, they have added the capability recently and you can embed your visualizations directly from the web outlet. 
+
+Here's an example: 
+
+<iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiNzdmZDFjZjctOTRmMi00NDI2LTgzYWUtYTBlMjI2NjQ5MjRiIiwidCI6IjgyYzBiODcxLTMzNWYtNGI1Yy05ZWQwLWE0YTIzNTY1YTc5YiIsImMiOjZ9" frameborder="0" allowFullScreen="true"></iframe>
+
+D3 javascript can handle inline visualization, and they are gaining popularity, but I haven't had the chance to experience with it yet).
 
 Positives about PowerBI and Tableau: They are mega ETL tools, which means you can extract data from multiple sources, make the data architecture right and create great reports. Their visual presentations are way-way more charming than R's, and they support linked charts (I haven't found a way to have this in R). Personally, I think PowerBI is 100 times more potent than Tableau, and if given a choice I wouldn't even blink in choosing it over Tableau. Both can connect to every kind of data source known to me! Both have great visualizations.
 
