@@ -2,18 +2,19 @@
 main:
   - title: "About"
     url: /about/
-  - title: "Posts"
-    url: /year-archive/
-  - title: "External Link"
-    url: https://csufdatavizclub.github.io
   - title: "Search"
     url: /search/
-  - title: "Collections"
-    url: /collection-archive/
-  - title: "Categories"
-    url: /categories/
-  - title: "Tags"
-    url: /tags/
-  - title: "Pages"
-    url: /page-archive/
-  
+  - title: "CSUF DataVizClub"
+    url: https://csufdatavizclub.github.io
+
+  # - title: "Posts"
+  #   url: /year-archive/
+  # - title: "Collections"
+  #   url: /collection-archive/
+  # - title: "Categories"
+  #   url: /categories/
+  # - title: "Tags"
+  #   url: /tags/
+  # - title: "Pages"
+  #   url: /page-archive/
+  # 
