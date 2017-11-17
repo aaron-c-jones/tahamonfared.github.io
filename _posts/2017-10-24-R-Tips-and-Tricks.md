@@ -33,7 +33,7 @@ Seems easy here, since you basically didn't need it. But sometimes in a function
 
 **Shiny app for Bayesian Network**
 
-But since we are on the shiny front let's just have an example here. [BNLearn](https://tahamonfared.shinyapps.io/Bayesian_Network/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_treasury%3Br6XWYE10SDahuZR4AACxxA%3D%3D)
+But since we are on the shiny front let's just have an example here. [BNLearn](https://tahamonfared.shinyapps.io/Bayesian_Network/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_treasury%3Br6XWYE10SDahuZR4AACxxA%3D%3D){: .btn .btn--info}
 
 This is a Bayesian network app to estimate probabilities on adult dataset from UCI repository...
 

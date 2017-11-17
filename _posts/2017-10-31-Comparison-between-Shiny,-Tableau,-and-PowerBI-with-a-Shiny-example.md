@@ -176,4 +176,4 @@ Shiny applications not supported in static R Markdown documents
 <!--/html_preserve-->
 You can see this app in action in my Shinyapps.io.
 
-[DirichletProcessVisualization](https://tahamonfared.shinyapps.io/DirichletProcessVisualization/)
+[DirichletProcessVisualization](https://tahamonfared.shinyapps.io/DirichletProcessVisualization/){: .btn .btn--info }
