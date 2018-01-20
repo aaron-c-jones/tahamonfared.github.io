@@ -14,11 +14,11 @@ permalink: /about/
 
 Hi everyone! I'm Taha Monfared, an enthusiast for learning anything data related! You can print out [My Resume](/assets/TahaMonfared_Resume.pdf) if you are looking for a data scientist to add to your team.
 
-I have developed this website to work as a diary for me and a reference for conceptual/coding problems that may hinder any of us.  
+I have developed this website to work as a journal for me and a reference for conceptual/coding problems that may hinder any of us.  
 
 This website is a reflection of the knowledge dispersed on the web (StackOverflow & other sources) that had helped me along the way, combined with my original code and proofs. 
  
-I should thank my professors at CSU Fullerton and CSU East Bay (who I miss dearly), as they have guided me towards a better understanding of mathematical backbone of statistics. I encourage every data scientist, data analyst, machine learning expert, data analyst, or statistician to get dirty with the theories behind statistical tools. 
+I should thank my professors at CSU Fullerton and CSU East Bay (who I miss dearly), as they have guided me towards a better understanding of the mathematical backbone of statistics. I encourage every data scientist, data analyst, machine learning expert, data analyst, or statistician to get dirty with the theories behind statistical tools. 
 
 Enjoy, Communicate and Stats on!
 
