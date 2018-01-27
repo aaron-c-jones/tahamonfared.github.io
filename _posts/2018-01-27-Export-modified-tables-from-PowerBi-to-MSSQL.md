@@ -35,7 +35,7 @@ Although there are steps to using it, it's so much easier and more accessible th
 1. Run PowerShell as an administrator. (start menu search for power shell and then right click, run as administrator)
 2. Check whether you have permission to run scripts. 
 
-```
+```PowerShell
 Get-ExecutionPolicy -List
 ```
 
@@ -47,20 +47,20 @@ If you have undefined for your CurrentUser and LocalMachine Restricted set it to
 
 This is how I have set it up:
 
-```
+```PowerShell
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 ```
 
 Then as @RuiRomano describes, you'll need to run these:
 
-```
+```PowerShell
 Install-Module PowerBIETL
 Import-Module PowerBIETL
 ```
 
 Then you can use the module!
 
-```
+```PowerShell
 Export-PBIDesktopToSQL -pbiDesktopWindowName "*sample*" -sqlConnStr "Data Source=.\SQL2014; Initial Catalog=DestinationDB; Integrated Security=SSPI" -sqlSchema "stg" -verbose
 ```
 
